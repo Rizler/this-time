@@ -28,7 +28,13 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        _playerRb.velocity = new Vector3(_movementSpeed * horizontal, _playerRb.velocity.y, _movementSpeed * vertical);
+
+        Vector3 newVelocity = new Vector3(horizontal, 0, vertical);
+        newVelocity.Normalize();
+        newVelocity *= _movementSpeed;
+        newVelocity.y = _playerRb.velocity.y;
+
+        _playerRb.velocity = newVelocity;
 
         if (horizontal != 0 || vertical != 0)
         {
