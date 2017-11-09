@@ -6,25 +6,43 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    float _movementSpeed = 10;
+    private float _movementSpeed = 10;
     [SerializeField]
-    float _rotationSpeed = 20;
-
+    private float _rotationSpeed = 20;
+    [SerializeField]
+    private float _jumpForce = 10;
+    [SerializeField]
+    private float _attackCooldown = 1;
+    
     private Rigidbody _playerRb;
+    private float _lastAttackTime;
+    private int _noSelfCollisionMask;
 
-    // Use this for initialization
     void Start()
     {
         _playerRb = GetComponent<Rigidbody>();
+        _noSelfCollisionMask = ~LayerMask.GetMask("Player");
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (Input.GetButtonDown("Attack"))
+        {
+            if (Time.time - _lastAttackTime >= _attackCooldown)
+            {
+                Attack();
+            }
+        };
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (IsGrounded())
+            {
+                Jump();
+            }
+        };
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -41,5 +59,22 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(new Vector3(_playerRb.velocity.x, 0, _playerRb.velocity.z));
             _playerRb.MoveRotation(Quaternion.Slerp(_playerRb.rotation, targetRotation, Time.fixedDeltaTime * _rotationSpeed));
         }
+    }
+
+    private void Jump()
+    {
+        _playerRb.AddForce(0, _jumpForce, 0, ForceMode.Impulse);
+    }
+
+    private bool IsGrounded()
+    {
+        var collider = GetComponent<CapsuleCollider>();
+        Vector3 endPoint = new Vector3(collider.bounds.center.x, collider.bounds.min.y - 0.1f, collider.bounds.min.z);
+        return Physics.CheckCapsule(collider.bounds.center, endPoint, collider.radius, _noSelfCollisionMask);
+    }
+
+    private void Attack()
+    {
+        _lastAttackTime = Time.time;
     }
 }
