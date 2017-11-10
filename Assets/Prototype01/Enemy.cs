@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private Transform healthCanvasContainer;
 
+    public delegate void DestroyedCallback(Enemy enemy);
+    public event DestroyedCallback OnDestroyedCallback;
+
     public Transform playerTransform {get;set;}
 
     void Start()
@@ -40,5 +43,13 @@ public class Enemy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// This function is called when the MonoBehaviour will be destroyed.
+    /// </summary>
+    void OnDestroy()
+    {
+        if (OnDestroyedCallback != null) {OnDestroyedCallback(this);}
     }
 }
