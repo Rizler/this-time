@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571385, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 45074281}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 103619575}
   - component: {fileID: 103619574}
   - component: {fileID: 103619573}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 349687097}
   - component: {fileID: 349687099}
   - component: {fileID: 349687098}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392e707e5c991b9419f986d5d3d594c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 635190126}
+  _target: {fileID: 1949083791}
 --- !u!114 &351242409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,9 +458,9 @@ GameObject:
   - component: {fileID: 483537804}
   - component: {fileID: 483537803}
   - component: {fileID: 483537806}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,11 +590,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &635190126 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1898066212729346, guid: 15a9f0bdf8737f349ac70a3e049dfb70,
-    type: 2}
-  m_PrefabInternal: {fileID: 635190124}
 --- !u!4 &635190127 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4283163834893840, guid: 15a9f0bdf8737f349ac70a3e049dfb70,
@@ -697,7 +692,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 783190449}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +872,7 @@ GameObject:
   - component: {fileID: 905092044}
   - component: {fileID: 905092046}
   - component: {fileID: 905092045}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthBarBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,11 +1088,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1817659646584760, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898066212729346, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4283163834893840, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1121,7 +1116,7 @@ GameObject:
   - component: {fileID: 1323371638}
   - component: {fileID: 1323371640}
   - component: {fileID: 1323371639}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,11 +1403,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1817659646584760, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1898066212729346, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4283163834893840, guid: 15a9f0bdf8737f349ac70a3e049dfb70, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1521,7 +1516,7 @@ GameObject:
   - component: {fileID: 1669043839}
   - component: {fileID: 1669043838}
   - component: {fileID: 1669043837}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1789,9 +1784,9 @@ GameObject:
   - component: {fileID: 1802517269}
   - component: {fileID: 1802517268}
   - component: {fileID: 1802517267}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Enemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2029,7 +2024,7 @@ GameObject:
   - component: {fileID: 1910093618}
   - component: {fileID: 1910093620}
   - component: {fileID: 1910093619}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: HealthBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2098,7 +2093,6 @@ GameObject:
   - component: {fileID: 1949083794}
   - component: {fileID: 1949083793}
   - component: {fileID: 1949083792}
-  - component: {fileID: 1949083796}
   - component: {fileID: 1949083797}
   - component: {fileID: 1949083798}
   m_Layer: 8
@@ -2125,7 +2119,6 @@ MonoBehaviour:
   _airControlForce: 30
   _rotationSpeed: 15
   _attackCooldown: 0
-  _attackDuration: 0.1
 --- !u!136 &1949083793
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2168,18 +2161,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1949083796
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949083791}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 2.5, y: 1.6817431, z: 1.0855131}
-  m_Center: {x: 0, y: 2.7034323, z: 1.1}
 --- !u!82 &1949083797
 AudioSource:
   m_ObjectHideFlags: 0

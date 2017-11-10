@@ -4,7 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(AudioSource))]
 public class PlayerController : MonoBehaviour
 {
@@ -23,8 +22,6 @@ public class PlayerController : MonoBehaviour
     [Header("Combat")]
     [SerializeField]
     private float _attackCooldown = 1;
-    [SerializeField]
-    private float _attackDuration = 0.1f;
 
 
     private Rigidbody _rigidBody;
@@ -48,7 +45,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Time.time - _lastAttackTime >= _attackCooldown)
             {
-                StartCoroutine(Attack());
+                Attack();
             }
         };
         if (Input.GetButtonDown("Jump"))
@@ -145,13 +142,22 @@ public class PlayerController : MonoBehaviour
         return Physics.CheckCapsule(_collider.bounds.center, endPoint, _collider.radius, _noSelfCollisionMask);
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
-        BoxCollider meleeCollider = GetComponent<BoxCollider>();
-        meleeCollider.enabled = true;
-        AudioSource hitSound = GetComponent<AudioSource>();
-        hitSound.Play();
-        yield return new WaitForSeconds(_attackDuration);
-        meleeCollider.enabled = false;
+        Vector3 hitBoxCenter = transform.TransformPoint(0, 2.7f, _collider.radius);
+        Vector3 hitBoxHalfExtents = new Vector3(1.25f, 1.7f, 1.1f);
+        RaycastHit[] hits = Physics.BoxCastAll(hitBoxCenter, hitBoxHalfExtents, transform.forward, Quaternion.identity, 0, _noSelfCollisionMask);
+        if (hits.Length > 0)
+        {
+            AudioSource hitSound = GetComponent<AudioSource>();
+            hitSound.Play();
+        }
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponent<Enemy>().Hit();
+            }
+        }
     }
 }
