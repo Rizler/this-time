@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
         }
         foreach (RaycastHit hit in hits)
         {
-            if (hit.transform.tag == "Enemy")
+            if (hit.collider.tag == "Enemy")
             {
                 hit.transform.GetComponent<Enemy>().Hit();
             }
