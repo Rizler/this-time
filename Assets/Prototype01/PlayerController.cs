@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion _targetRotation = Quaternion.identity;
     private float _lastAttackTime;
     private bool _isGrounded;
+    private Vector3 _lastGroundedPosition;
     private int _noSelfCollisionMask;
 
 
@@ -41,6 +42,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        _isGrounded = IsGrounded();
+        if (_isGrounded)
+        {
+            _lastGroundedPosition = transform.position;
+        }
+
         if (Input.GetButtonDown("Attack"))
         {
             if (Time.time - _lastAttackTime >= _attackCooldown)
@@ -50,7 +57,7 @@ public class PlayerController : MonoBehaviour
         };
         if (Input.GetButtonDown("Jump"))
         {
-            if (IsGrounded())
+            if (_isGrounded)
             {
                 Jump();
             }
@@ -115,25 +122,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        _isGrounded = IsGrounded();
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        //_isGrounded = IsGrounded();
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
+        if (other.name == "Water")
+        {
+            transform.position = _lastGroundedPosition;
+        }
     }
 
     private void Jump()
     {
         _rigidBody.AddForce(0, _jumpForce, 0, ForceMode.Impulse);
-        _isGrounded = false;
     }
 
     private bool IsGrounded()

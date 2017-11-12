@@ -45,6 +45,14 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Water")
+        {
+            Destroy(gameObject);
+        }
+    }
+
     /// <summary>
     /// This function is called when the MonoBehaviour will be destroyed.
     /// </summary>
