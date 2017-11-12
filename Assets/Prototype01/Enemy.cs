@@ -7,8 +7,9 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy : MonoBehaviour {
 
-	private float _maxHp = 100;
-    private float _hp = 100;
+    [SerializeField]
+    private float _maxHp = 100;
+    private float _hp;
     private NavMeshAgent agent;
 
     [SerializeField]
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour {
 
     void Start()
     {
+        _hp = _maxHp;
         if (!healthBarImg) healthBarImg = transform.Find("Canvas").transform.Find("HealthBarImage").GetComponent<Image>();
         agent = GetComponent<NavMeshAgent>();
     }
@@ -49,7 +51,7 @@ public class Enemy : MonoBehaviour {
     {
         if (other.name == "Water")
         {
-            Destroy(gameObject);
+           // Destroy(gameObject);
         }
     }
 

@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private float _lastAttackTime;
     private bool _isGrounded;
     private Vector3 _lastGroundedPosition;
+    private float _groundedTimer;
     private int _noSelfCollisionMask;
 
 
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         _rigidBody = GetComponent<Rigidbody>();
         _collider = GetComponent<CapsuleCollider>();
         _noSelfCollisionMask = ~LayerMask.GetMask("Player");
+        _lastGroundedPosition = transform.position;
     }
 
     void Update()
@@ -45,7 +47,16 @@ public class PlayerController : MonoBehaviour
         _isGrounded = IsGrounded();
         if (_isGrounded)
         {
-            _lastGroundedPosition = transform.position;
+            _groundedTimer += Time.deltaTime;
+            if (_groundedTimer >= 0.3)
+            {
+                _lastGroundedPosition = transform.position;
+                _groundedTimer = 0;
+            }
+        }
+        else
+        {
+            _groundedTimer = 0;
         }
 
         if (Input.GetButtonDown("Attack"))

@@ -12,6 +12,9 @@ public class PortalEncounter : MonoBehaviour
     [SerializeField]
     private Transform[] _enemySpawns;
 
+    public delegate void OnEncounterComplete(PortalEncounter encounter);
+    public event OnEncounterComplete onEncounterCompleteCallback;
+
     private int _enemiesDefeated;
 
     // Use this for initialization
@@ -25,6 +28,8 @@ public class PortalEncounter : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         foreach (Transform enemySpawn in _enemySpawns)
         {
+            //TODO: Figure out why this doesn't really spawn the enemy at enemy enemySpawn.position
+            //Enemy enemy = Instantiate(_enemy, enemySpawn.position, Quaternion.identity);
             Enemy enemy = Instantiate(_enemy, enemySpawn);
             enemy.OnDestroyedCallback += EnemyDestroyedCallback;
         }
@@ -35,8 +40,8 @@ public class PortalEncounter : MonoBehaviour
         _enemiesDefeated++;
         if (_enemiesDefeated >= _enemySpawns.Length)
         {
-            Debug.Log("Encounter Complete");
             TogglePortal(true);
+            onEncounterCompleteCallback.Invoke(this);
         }
     }
 
