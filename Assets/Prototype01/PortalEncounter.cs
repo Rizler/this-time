@@ -30,7 +30,7 @@ public class PortalEncounter : MonoBehaviour
         {
             //TODO: Figure out why this doesn't really spawn the enemy at enemy enemySpawn.position
             //Enemy enemy = Instantiate(_enemy, enemySpawn.position, Quaternion.identity);
-            Enemy enemy = Instantiate(_enemy, enemySpawn);
+            Enemy enemy = Instantiate(_enemy, enemySpawn.position, Quaternion.identity, enemySpawn);
             enemy.OnDestroyedCallback += EnemyDestroyedCallback;
         }
     }

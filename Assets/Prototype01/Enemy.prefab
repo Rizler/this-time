@@ -387,6 +387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489e7e1ccdaabcd479ad69201c792bd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _maxHp: 100
   healthBarImg: {fileID: 114462157116648610}
   healthCanvasContainer: {fileID: 0}
 --- !u!114 &114636258040489268
@@ -411,7 +412,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 7.41
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136177760161638688
 CapsuleCollider:
