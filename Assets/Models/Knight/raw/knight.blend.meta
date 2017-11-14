@@ -30,6 +30,15 @@ ModelImporter:
     100044: Spine_001
     100046: Spine_002
     100048: Spine_003
+    100050: Knight
+    100052: Arm-ik-ctrl_L
+    100054: Arm-ik-ctrl_R
+    100056: Arm-ik-pole_L
+    100058: Arm-ik-pole_R
+    100060: Leg-ik-pole_L
+    100062: Leg-ik-pole_R
+    100064: Leg-ik-target_L
+    100066: Leg-ik-target_R
     400000: Arm_000_L
     400002: Arm_000_R
     400004: Arm_001_L
@@ -55,10 +64,24 @@ ModelImporter:
     400044: Spine_001
     400046: Spine_002
     400048: Spine_003
+    400050: Knight
+    400052: Arm-ik-ctrl_L
+    400054: Arm-ik-ctrl_R
+    400056: Arm-ik-pole_L
+    400058: Arm-ik-pole_R
+    400060: Leg-ik-pole_L
+    400062: Leg-ik-pole_R
+    400064: Leg-ik-target_L
+    400066: Leg-ik-target_R
     4300000: Cylinder
+    4300002: Knight
     7400000: Default Take
+    7400002: Idle
+    7400004: Running
+    7400006: Jump
     9500000: //RootNode
     13700000: Cylinder
+    13700002: Knight
   externalObjects:
   - first:
       type: UnityEngine:Material
