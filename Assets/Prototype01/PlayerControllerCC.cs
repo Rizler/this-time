@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class PlayerControllerCC : MonoBehaviour
 {
+    [SerializeField]
+    private Animator _animator;
+
     [Header("Movement")]
     [SerializeField]
     private float _movementVelocity = 20;
@@ -25,8 +28,6 @@ public class PlayerControllerCC : MonoBehaviour
     private float _stopJumpGravityMultiplier = 3;
     [SerializeField]
     private float _rotationSpeed = 10;
-    [SerializeField]
-    private Animator _animator;
 
     [Header("Combat")]
     [SerializeField]
@@ -149,6 +150,7 @@ public class PlayerControllerCC : MonoBehaviour
     {
         Vector3 motion = new Vector3(horizontalAxis, 0, verticalAxis);
         motion.Normalize();
+
         if (_charController.isGrounded)
         {
             motion *= _movementVelocity;
@@ -163,23 +165,21 @@ public class PlayerControllerCC : MonoBehaviour
                 return new Vector3(_xVelocity, 0, _zVelocity) * Time.fixedDeltaTime;
             }
 
-            float normalizedMaxVelocity = Mathf.Max(Mathf.Abs(motion.x), Mathf.Abs(motion.z)) * _movementVelocity;
-            motion *= _airControlAcceleration;
+            float xMotion = CalculateDistance(_xVelocity, motion.x * _airControlAcceleration, Time.fixedDeltaTime);
+            float zMotion = CalculateDistance(_zVelocity, motion.z * _airControlAcceleration, Time.fixedDeltaTime);
 
-            //TODO: need to calculate the maximum acceleration so we don't go over the maximum speed before calculating the distance
-            //motion.x = CalculateDistance(_xVelocity, motion.x * _airControlAcceleration, Time.fixedDeltaTime);
-            //motion.z = CalculateDistance(_zVelocity, motion.z * _airControlAcceleration, Time.fixedDeltaTime);
-            float xMotion = CalculateDistance(_xVelocity, 0, Time.fixedDeltaTime);
-            float zMotion = CalculateDistance(_zVelocity, 0, Time.fixedDeltaTime);
+            float normalizedMaxVelocity = Mathf.Max(Mathf.Abs(motion.x), Mathf.Abs(motion.z)) * _movementVelocity;
+            float maxDistance = normalizedMaxVelocity * Time.fixedDeltaTime;
+            xMotion = Mathf.Clamp(xMotion, -maxDistance, maxDistance);
+            zMotion = Mathf.Clamp(zMotion, -maxDistance, maxDistance);
 
             _xVelocity = CalculateVelocity(_xVelocity, motion.x * _airControlAcceleration, Time.fixedDeltaTime);
             _zVelocity = CalculateVelocity(_zVelocity, motion.z * _airControlAcceleration, Time.fixedDeltaTime);
+            _xVelocity = Mathf.Clamp(_xVelocity, -normalizedMaxVelocity, normalizedMaxVelocity);
+            _zVelocity = Mathf.Clamp(_zVelocity, -normalizedMaxVelocity, normalizedMaxVelocity);
 
             motion.x = xMotion;
             motion.z = zMotion;
-
-            _xVelocity = Mathf.Clamp(_xVelocity, -normalizedMaxVelocity, normalizedMaxVelocity);
-            _zVelocity = Mathf.Clamp(_zVelocity, -normalizedMaxVelocity, normalizedMaxVelocity);
         }
         return motion;
     }
