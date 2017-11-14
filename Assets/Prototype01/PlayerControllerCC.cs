@@ -114,17 +114,8 @@ public class PlayerControllerCC : MonoBehaviour
             }
         }
 
-        if (_charController.isGrounded)
-        {
-            _animator.SetFloat("Speed", new Vector2(_xVelocity, _zVelocity).magnitude / 20f);
-        }
-        else
-        {
-            _animator.SetFloat("Speed", 0.0f);
-        }
+        _animator.SetFloat("Speed", new Vector2(_xVelocity, _zVelocity).magnitude / 15f);
         
-
-
 
     }
 
