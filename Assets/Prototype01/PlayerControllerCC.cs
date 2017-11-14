@@ -25,6 +25,8 @@ public class PlayerControllerCC : MonoBehaviour
     private float _stopJumpGravityMultiplier = 3;
     [SerializeField]
     private float _rotationSpeed = 10;
+    [SerializeField]
+    private Animator _animator;
 
     [Header("Combat")]
     [SerializeField]
@@ -107,9 +109,22 @@ public class PlayerControllerCC : MonoBehaviour
         {
             if (_charController.isGrounded)
             {
+                _animator.SetTrigger("Jump");
                 Jump();
             }
         }
+
+        if (_charController.isGrounded)
+        {
+            _animator.SetFloat("Speed", new Vector2(_xVelocity, _zVelocity).magnitude / 20f);
+        }
+        else
+        {
+            _animator.SetFloat("Speed", 0.0f);
+        }
+        
+
+
 
     }
 
