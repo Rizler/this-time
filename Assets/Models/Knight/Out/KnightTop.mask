@@ -7,4 +7,94 @@ AvatarMask:
   m_PrefabInternal: {fileID: 0}
   m_Name: KnightTop
   m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-  m_Elements: []
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-ctrl.L
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-ctrl.L/Arm-ik-ctrl.L_end
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-ctrl.R
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-ctrl.R/Arm-ik-ctrl.R_end
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-pole.L
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-pole.L/Arm-ik-pole.L_end
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-pole.R
+    m_Weight: 1
+  - m_Path: Armature/Arm-ik-pole.R/Arm-ik-pole.R_end
+    m_Weight: 1
+  - m_Path: Armature/Leg-ik-pole.L
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-pole.L/Leg-ik-pole.L_end
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-pole.R
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-pole.R/Leg-ik-pole.R_end
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.L
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.L/Leg.002.L
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.L/Leg.002.L/Leg.003.L
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.L/Leg.002.L/Leg.003.L/Leg.003.L_end
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.R
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.R/Leg.002.R
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.R/Leg.002.R/Leg.003.R
+    m_Weight: 0
+  - m_Path: Armature/Leg-ik-target.R/Leg.002.R/Leg.003.R/Leg.003.R_end
+    m_Weight: 0
+  - m_Path: Armature/Spine.000
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Leg.000.L
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Leg.000.L/Leg.001.L
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Leg.000.L/Leg.001.L/Leg.001.L_end
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Leg.000.R
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Leg.000.R/Leg.001.R
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Leg.000.R/Leg.001.R/Leg.001.R_end
+    m_Weight: 0
+  - m_Path: Armature/Spine.000/Spine.001
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.L
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.L/Arm.000.L
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.L/Arm.000.L/Arm.001.L
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.L/Arm.000.L/Arm.001.L/Hand.L
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.L/Arm.000.L/Arm.001.L/Hand.L/Hand.L_end
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.R
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.R/Arm.000.R
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.R/Arm.000.R/Arm.001.R
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.R/Arm.000.R/Arm.001.R/Hand.R
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Clav.R/Arm.000.R/Arm.001.R/Hand.R/Hand.R_end
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Spine.003
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Spine.003/Head
+    m_Weight: 1
+  - m_Path: Armature/Spine.000/Spine.001/Spine.002/Spine.003/Head/Head_end
+    m_Weight: 1
+  - m_Path: Knight
+    m_Weight: 1

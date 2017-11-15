@@ -5,7 +5,7 @@ AvatarMask:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: KnightTop
+  m_Name: KnightTopFunnier
   m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
   m_Elements:
   - m_Path: 
@@ -55,17 +55,17 @@ AvatarMask:
   - m_Path: Armature/Spine.000
     m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.L/Leg.001.L
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.L/Leg.001.L/Leg.001.L_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.R/Leg.001.R
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Leg.000.R/Leg.001.R/Leg.001.R_end
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Armature/Spine.000/Spine.001
     m_Weight: 1
   - m_Path: Armature/Spine.000/Spine.001/Spine.002
