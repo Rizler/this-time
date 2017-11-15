@@ -102,6 +102,7 @@ public class PlayerControllerCC : MonoBehaviour
         {
             if (Time.time - _lastAttackTime >= _attackCooldown)
             {
+                _animator.SetTrigger("Attack");
                 Attack();
             }
         }

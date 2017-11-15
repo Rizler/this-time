@@ -79,6 +79,8 @@ ModelImporter:
     7400002: Idle
     7400004: Running
     7400006: Jump
+    7400008: ArmatureAction
+    7400010: Punch
     9500000: //RootNode
     13700000: Cylinder
     13700002: Knight
