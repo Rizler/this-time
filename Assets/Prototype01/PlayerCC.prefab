@@ -1461,7 +1461,7 @@ MonoBehaviour:
   _animator: {fileID: 95893362109633558}
   _movementVelocity: 20
   _airControlAcceleration: 100
-  _jumpHeight: 6
+  _jumpHeight: 7
   _minJumpHeight: 2
   _jumpPeakHorizontalDistance: 7
   _fallGravityMultiplier: 1

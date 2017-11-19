@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -32,20 +32,28 @@ public class PlayerControllerCC : MonoBehaviour
     [Header("Combat")]
     [SerializeField]
     private float _attackCooldown = 1;
+    [SerializeField]
+    private Collider _meleeCollider;
 
 
     private CharacterController _charController;
+
     private float _xVelocity;
     private float _yVelocity;
     private float _zVelocity;
+
     private float _gravity;
     private float _initialJumpVelocity;
     private bool _isJumpPressed;
     private float _minJumpVelocityThreshold;
+
     private Quaternion _targetRotation = Quaternion.identity;
+
     private float _lastAttackTime;
     private Vector3 _lastGroundedPosition;
+
     private float _groundedTimer;
+
     private int _noSelfCollisionMask;
 
 
@@ -61,18 +69,13 @@ public class PlayerControllerCC : MonoBehaviour
         _initialJumpVelocity = (2 * _jumpHeight) / _jumpPeakTime; */
 
         // calculate by jumpHeight and horizontal jump distance
+        // h = 0.5gt^2 + v0t
+        // v = v0 + gt
+        // h = v^2 / 2g -- Energy equation (h from peak of jump downwards)
         _gravity = (-2 * _jumpHeight * Mathf.Pow(_movementVelocity, 2)) / (Mathf.Pow(_jumpPeakHorizontalDistance, 2));
         _initialJumpVelocity = (2 * _jumpHeight * _movementVelocity) / _jumpPeakHorizontalDistance;
 
-        // h = 0.5gt^2 + v0t
-        // v = v0 + gt
-        float minJumpTime = ((-2 * _initialJumpVelocity) + Mathf.Sqrt((4 * Mathf.Pow(_initialJumpVelocity, 2)) + (8 * _gravity * _minJumpHeight))) / (2 * _gravity);
-        _minJumpVelocityThreshold = _initialJumpVelocity + _gravity * minJumpTime;
-
-        Debug.Log("_gravity: " + _gravity);
-        Debug.Log("_initialJumpVelocity: " + _initialJumpVelocity);
-        Debug.Log("minJumpTime: " + minJumpTime);
-        Debug.Log("_minJumpVelocityThreshold: " + _minJumpVelocityThreshold);
+        _minJumpVelocityThreshold = Mathf.Sqrt((_jumpHeight -_minJumpHeight) * -2 * _gravity);
     }
 
     void Start()
@@ -80,6 +83,7 @@ public class PlayerControllerCC : MonoBehaviour
         _charController = GetComponent<CharacterController>();
         _noSelfCollisionMask = ~LayerMask.GetMask("Player");
         _lastGroundedPosition = transform.position;
+        _meleeCollider.enabled = false;
     }
 
     void Update()
@@ -102,8 +106,7 @@ public class PlayerControllerCC : MonoBehaviour
         {
             if (Time.time - _lastAttackTime >= _attackCooldown)
             {
-                _animator.SetTrigger("Attack");
-                Attack();
+                StartCoroutine(Attack());
             }
         }
         _isJumpPressed = Input.GetButton("Jump");
@@ -117,9 +120,33 @@ public class PlayerControllerCC : MonoBehaviour
         }
 
         _animator.SetFloat("Speed", new Vector2(_xVelocity, _zVelocity).magnitude / 15f);
-        
-
     }
+
+    void FixedUpdate()
+    {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 motion = CalculateXZMotion(horizontal, vertical);
+        motion.y = CalculateVerticalMotion();
+        _charController.Move(motion);
+
+        if (_charController.isGrounded)
+        {
+            _yVelocity = 0;
+        }
+
+        RotateTowardsMovement(horizontal, vertical);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.name == "Water")
+        {
+            transform.position = _lastGroundedPosition;
+        }
+    }
+
 
     private float CalculateDistance(float velocity, float acceleration, float deltaTime)
     {
@@ -194,39 +221,20 @@ public class PlayerControllerCC : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-
-        Vector3 motion = CalculateXZMotion(horizontal, vertical);
-        motion.y = CalculateVerticalMotion();
-        _charController.Move(motion);
-
-        if (_charController.isGrounded)
-        {
-            _yVelocity = 0;
-        }
-
-        RotateTowardsMovement(horizontal, vertical);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.name == "Water")
-        {
-            transform.position = _lastGroundedPosition;
-        }
-    }
-
     private void Jump()
     {
         _yVelocity = _initialJumpVelocity;
     }
 
-    private void Attack()
+    private IEnumerator Attack()
     {
-        Vector3 hitBoxCenter = transform.TransformPoint(0, 2.7f, _charController.radius);
+        _animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(0.1f);
+        _meleeCollider.enabled = true;
+        yield return new WaitForSeconds(0.2f);
+        _meleeCollider.enabled = false;
+
+        /*Vector3 hitBoxCenter = transform.TransformPoint(0, 2.7f, _charController.radius);
         Vector3 hitBoxHalfExtents = new Vector3(1.25f, 1.7f, 1.1f);
         RaycastHit[] hits = Physics.BoxCastAll(hitBoxCenter, hitBoxHalfExtents, transform.forward, Quaternion.identity, 0, _noSelfCollisionMask);
         if (hits.Length > 0)
@@ -240,6 +248,6 @@ public class PlayerControllerCC : MonoBehaviour
             {
                 hit.transform.GetComponent<Enemy>().Hit();
             }
-        }
+        }*/
     }
 }

@@ -10,10 +10,11 @@ public class PlayerInRangeDetector : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (!other.CompareTag("Player")) {
-			return;
+        if (!other.CompareTag("Player"))
+        {
+            return;
 		}
-		container.playerTransform = other.transform;
+        container.playerTransform = other.transform;
 	}
 
 	void OnTriggerExit(Collider other)

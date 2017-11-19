@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
 
     [SerializeField]
     private float _maxHp = 100;
@@ -18,10 +19,12 @@ public class Enemy : MonoBehaviour {
     [SerializeField]
     private Transform healthCanvasContainer;
 
+    private int hitCounter = 0;
+
     public delegate void DestroyedCallback(Enemy enemy);
     public event DestroyedCallback OnDestroyedCallback;
 
-    public Transform playerTransform {get;set;}
+    public Transform playerTransform { get; set; }
 
     void Start()
     {
@@ -30,17 +33,39 @@ public class Enemy : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
     }
 
-    void Update() 
+    void Update()
     {
-        if (playerTransform) {
+        if (playerTransform && agent.enabled)
+        {
             agent.destination = playerTransform.position;
         }
     }
 
+    private IEnumerator KnockDown()
+    {
+        return null;
+        /*agent.enabled = false;
+        Rigidbody rigidBody = GetComponent<Rigidbody>();
+        Quaternion standingRotation = rigidBody.rotation;
+        Quaternion newRotation = standingRotation * Quaternion.Euler(-90, 0, 0);
+        rigidBody.MoveRotation(newRotation);
+        transform.rotation = newRotation;
+        Camera.main.GetComponent<FollowingCamera>().Shake(0.15f, 0.25f);
+        yield return new WaitForSeconds(3);
+        rigidBody.MoveRotation(standingRotation);
+        agent.enabled = true;*/
+    }
+
     public void Hit()
     {
-        _hp -= 25;
+        //_hp -= 25;
         healthBarImg.fillAmount = _hp / _maxHp;
+        hitCounter++;
+        if (hitCounter == 3)
+        {
+            StartCoroutine(KnockDown());
+            hitCounter = 0;
+        }
         if (_hp <= 0)
         {
             Destroy(gameObject);
@@ -51,7 +76,7 @@ public class Enemy : MonoBehaviour {
     {
         if (other.name == "Water")
         {
-           // Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -60,6 +85,6 @@ public class Enemy : MonoBehaviour {
     /// </summary>
     void OnDestroy()
     {
-        if (OnDestroyedCallback != null) {OnDestroyedCallback(this);}
+        if (OnDestroyedCallback != null) { OnDestroyedCallback(this); }
     }
 }

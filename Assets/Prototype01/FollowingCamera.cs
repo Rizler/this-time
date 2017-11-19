@@ -15,6 +15,10 @@ public class FollowingCamera : MonoBehaviour
 
     private Quaternion _fixedRotation;
 
+    private float _shakeIntensity;
+    private float _shakeDuration;
+
+
     // Use this for initialization
     void Start()
     {
@@ -24,11 +28,27 @@ public class FollowingCamera : MonoBehaviour
 
     void LateUpdate()
     {
-        if (_isChild) {
+        if (_shakeDuration > 0)
+        {
+            _shakeDuration -= Time.deltaTime;
+            Vector3 rotationAmount = Random.insideUnitSphere * _shakeIntensity;
+            rotationAmount.z = 0;
+            transform.rotation *= Quaternion.Euler(rotationAmount);
+        }
+        else
+        {
             transform.rotation = _fixedRotation;
-        } else {
+        }
+
+        if (!_isChild)
+        {
             transform.position = _target.transform.position + _distance;
         }
-        
+    }
+
+    public void Shake(float duration, float intensity)
+    {
+        _shakeDuration = duration;
+        _shakeIntensity = intensity;
     }
 }
