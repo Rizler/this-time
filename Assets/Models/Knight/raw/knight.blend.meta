@@ -81,6 +81,10 @@ ModelImporter:
     7400006: Jump
     7400008: ArmatureAction
     7400010: Punch
+    7400012: HitFront
+    7400014: FallHitFront
+    7400016: LieBack
+    7400018: GetUpLieFront
     9500000: //RootNode
     13700000: Cylinder
     13700002: Knight
