@@ -54,8 +54,8 @@ namespace Prototype02
             _char = GetComponent<Character>();
             _input = new PlayerInputState();
             _velocity = Vector3.zero;
-            _char.OnKnockdownEvent += OnKnockDownCallback;
-            _char.OnGetUpEvent += OnGetUpCallback;
+            _char.OnKnockdownEvent.AddListener(OnKnockDownCallback);
+            _char.OnGetUpEvent.AddListener(OnGetUpCallback);
         }
 
         // Update is called once per frame

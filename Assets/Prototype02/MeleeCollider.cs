@@ -25,7 +25,7 @@ namespace Prototype02
             if (charHit != null && charHit.GetInstanceID() != _parentCharacter.GetInstanceID())
             {
                 charHit.ReceiveHit(_parentCharacter);
-                _parentCharacter.DeliverHit(charHit);
+                _parentCharacter.DeliveredHit(charHit);
                 _collider.enabled = false;
             }
         }

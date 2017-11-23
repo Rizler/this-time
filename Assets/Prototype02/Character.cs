@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 namespace Prototype02
 {
@@ -32,27 +33,18 @@ namespace Prototype02
         [SerializeField]
         private float _knockdownDuration = 2f;
 
+        [Header("Events")]
+        public UnityEvent OnKnockdownEvent;
+        public UnityEvent OnGetUpEvent;
+        public UnityEvent OnHitDeliveredEvent;
+        public UnityEvent OnHitReceivedEvent;
+        public UnityEvent OnDeathEvent;
 
         private Vector3 _velocity;
         private float _maxHp;
         private float _lastAttackTime;
         private float _lastHitReceivedTime;
         private int _comboCounter;
-
-
-        public delegate void OnKnockdown();
-        public event OnKnockdown OnKnockdownEvent;
-        public delegate void OnGetUp();
-        public event OnGetUp OnGetUpEvent;
-
-        public delegate void OnHitDelivered();
-        public event OnHitDelivered OnHitDeliveredEvent;
-
-        public delegate void OnHitReceived();
-        public event OnHitReceived OnHitReceivedEvent;
-
-        public delegate void OnDeath();
-        public event OnDeath OnDeathEvent;
 
 
         public Vector3 Velocity
@@ -84,7 +76,7 @@ namespace Prototype02
 
         public void ReceiveHit(Character hitter)
         {
-            _animator.SetTrigger("HitFront");
+            OnHitReceivedEvent.Invoke();
             _hp -= hitter._damage;
             UpdateHealthBar();
             if (_hp <= 0)
@@ -105,25 +97,24 @@ namespace Prototype02
             {
                 Knockdown();
             }
+            else
+            {
+                _animator.SetTrigger("HitFront");
+            }
+
             _lastHitReceivedTime = Time.time;
         }
 
-        public void DeliverHit(Character hitChar)
+        public void DeliveredHit(Character hitChar)
         {
-            if (OnHitDeliveredEvent != null)
-            {
-                OnHitDeliveredEvent.Invoke();
-            }
+            OnHitDeliveredEvent.Invoke();
         }
 
         public void Die()
         {
+            OnDeathEvent.Invoke();
             _animator.SetTrigger("FallHitFront");
             Camera.main.GetComponent<FollowingCamera>().Shake(0.3f, 0.25f);
-            if (OnDeathEvent != null)
-            {
-                OnDeathEvent.Invoke();
-            }
         }
 
         public void Knockdown()
@@ -133,19 +124,13 @@ namespace Prototype02
 
         private IEnumerator KnockdownRoutine()
         {
-            if (OnKnockdownEvent != null)
-            {
-                OnKnockdownEvent.Invoke();
-            }
+            OnKnockdownEvent.Invoke();
             _animator.SetTrigger("FallHitFront");
             Camera.main.GetComponent<FollowingCamera>().Shake(0.15f, 0.25f);
             yield return new WaitForSeconds(1.5f);
             _animator.SetTrigger("GetUp");
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
-            if (OnGetUpEvent != null)
-            {
-                OnGetUpEvent.Invoke();
-            }
+            OnGetUpEvent.Invoke();
         }
 
         public void Jump()
