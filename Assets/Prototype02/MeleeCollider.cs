@@ -7,16 +7,14 @@ namespace Prototype02
     [RequireComponent(typeof(Collider))]
     public class MeleeCollider : MonoBehaviour
     {
-        [SerializeField]
         private Character _parentCharacter;
-
         private Collider _collider;
         
-
         private void Start()
         {
             _collider = GetComponent<Collider>();
             _collider.enabled = false;
+            _parentCharacter = GetComponentInParent<Character>();
         }
 
         private void OnTriggerEnter(Collider other)

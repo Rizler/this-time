@@ -23,8 +23,6 @@ namespace Prototype02
         private Character _player;
         private Transform _playerTransform;
         private Character _char;
-        private bool _isKnockedDown;
-        
 
         void Start()
         {
@@ -38,7 +36,7 @@ namespace Prototype02
         
         void Update()
         {
-            if (_isKnockedDown)
+            if (!_agent.enabled)
             {
                 return;
             }
@@ -66,13 +64,11 @@ namespace Prototype02
 
         private void OnKnockdownEvent()
         {
-            _isKnockedDown = true;
             _agent.enabled = false;
         }
 
         private void OnGetUpEvent()
         {
-            _isKnockedDown = false;
             _agent.enabled = true;
         }
     }

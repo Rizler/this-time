@@ -15,8 +15,6 @@ namespace Prototype02
         [SerializeField]
         private float _animationSpeedFactor = 15f;
         [SerializeField]
-        private Collider _meleeCollider;
-        [SerializeField]
         private Image healthBarImg;
 
         [Header("Stats")]
@@ -40,6 +38,7 @@ namespace Prototype02
         public UnityEvent OnHitReceivedEvent;
         public UnityEvent OnDeathEvent;
 
+        private Collider _meleeCollider;
         private Vector3 _velocity;
         private float _maxHp;
         private float _lastAttackTime;
@@ -63,6 +62,7 @@ namespace Prototype02
 
         private void Start()
         {
+            _meleeCollider = GetComponentInChildren<MeleeCollider>().GetComponent<Collider>();
             _maxHp = _hp;
         }
 

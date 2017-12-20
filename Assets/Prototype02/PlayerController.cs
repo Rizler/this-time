@@ -40,7 +40,9 @@ namespace Prototype02
         private bool _stopJump;
         private Quaternion _targetRotation = Quaternion.identity;
         private bool _isKnockedDown;
-
+        private float _moveAfterHitTimer = 0;
+        private bool _isLunging;
+        private Vector3 _lungeDirection;
 
         private void OnValidate()
         {
@@ -56,6 +58,7 @@ namespace Prototype02
             _velocity = Vector3.zero;
             _char.OnKnockdownEvent.AddListener(OnKnockDownCallback);
             _char.OnGetUpEvent.AddListener(OnGetUpCallback);
+            _char.OnHitDeliveredEvent.AddListener(OnHitDeliveredCallback);
         }
 
         // Update is called once per frame
@@ -79,9 +82,46 @@ namespace Prototype02
 
             if (_input.SingleFrame.Attack == ButtonState.DOWN)
             {
-                _char.Attack();
+                Attack();
             }
             _char.Velocity = _velocity;
+        }
+
+        private void Attack()
+        {
+            Vector3 halfBoxExtents = new Vector3(2f, 0.5f, 1f);
+            DebugExtension.DebugLocalCube(transform.localToWorldMatrix, halfBoxExtents * 2, Color.red, Vector3.zero + Vector3.forward, 5);
+            //DebugExtension.DebugBounds(new Bounds(transform.TransformPoint(Vector3.zero) + transform.forward * 2, halfBoxExtents * 2), Color.red, 5);
+            Collider[] collidersInRange = Physics.OverlapBox(transform.TransformPoint(Vector3.zero) + transform.forward * 2, new Vector3(2, 1, 2), transform.rotation);
+            foreach (Collider collider in collidersInRange)
+            {
+                if (collider.GetComponent<EnemyAI>() != null)
+                {
+                    Debug.Log("rotate to enemy");
+                    transform.LookAt(collider.transform.position);
+                    if ((_velocity.x != 0 || _velocity.y != 0) && _charController.isGrounded)
+                    {
+                        Lunge(collider.transform.position);
+                    }
+                }
+            }
+            _char.Attack();
+        }
+
+        private void Lunge(Vector3 target)
+        {
+            _lungeDirection = target - transform.position;
+            _lungeDirection.y = 0;
+            _lungeDirection.Normalize();
+            _isLunging = true;
+            _velocity = Vector3.zero;
+            StartCoroutine(DisableLunge(0.3f));
+        }
+
+        private IEnumerator DisableLunge(float timeToWait)
+        {
+            yield return new WaitForSeconds(0.3f);
+            _isLunging = false;
         }
 
         private void FixedUpdate()
@@ -91,15 +131,33 @@ namespace Prototype02
                 return;
             }
 
-            Vector3 motion = CalculateXZMotion(_input.Continous.Horizontal, _input.Continous.Vertical);
+            Vector3 motion = Vector3.zero;
+            if (_isLunging)
+            {
+                _charController.Move(_lungeDirection * (Time.fixedDeltaTime * 30));
+                if (Vector3.Distance(transform.position, _lungeDirection) <= 1f)
+                {
+                    _isLunging = false;
+                }
+            }
+            else if (_moveAfterHitTimer <= 0)
+            { 
+                motion = CalculateXZMotion(_input.Continous.Horizontal, _input.Continous.Vertical);
+                RotateTowardsMovement(_input.Continous.Horizontal, _input.Continous.Vertical);
+            }
+            else
+            {
+                motion = Vector3.zero;
+                _moveAfterHitTimer -= Time.fixedDeltaTime;
+                _velocity = Vector3.zero;
+            }
+            
             motion.y = CalculateYMotion();
             _charController.Move(motion);
             if (_charController.isGrounded)
             {
                 _velocity.y = 0;
             }
-
-            RotateTowardsMovement(_input.Continous.Horizontal, _input.Continous.Vertical);
         }
 
         private void CalculateJumpParameters()
@@ -196,5 +254,13 @@ namespace Prototype02
         {
             _isKnockedDown = false;
         }
+
+        private void OnHitDeliveredCallback()
+        {
+            _moveAfterHitTimer = 0.1f;
+            _isLunging = false;
+            Debug.Log("Hit!");
+        }
+
     }
 }
