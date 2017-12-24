@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Prototype02
 {
@@ -12,27 +11,38 @@ namespace Prototype02
     {
         [SerializeField]
         private Animator _animator;
+
         [SerializeField]
         private float _animationSpeedFactor = 15f;
+
         [SerializeField]
         private Image healthBarImg;
 
         [Header("Stats")]
         [SerializeField]
         private float _hp = 100;
+
         [SerializeField]
         private float _damage = 25;
+
         [SerializeField]
         private float _attackCooldown = 1;
+
         [SerializeField]
         private int _comboToKnockdown = 3;
+
         [SerializeField]
         private float _comboTimeWindow = 1.5f;
+
         [SerializeField]
         private float _knockdownDuration = 2f;
 
+        [SerializeField]
+        private float heavyAttackCooldownModifier = 2f;
+
         [Header("Events")]
         public UnityEvent OnKnockdownEvent;
+
         public UnityEvent OnGetUpEvent;
         public UnityEvent OnHitDeliveredEvent;
         public UnityEvent OnHitReceivedEvent;
@@ -44,7 +54,6 @@ namespace Prototype02
         private float _lastAttackTime;
         private float _lastHitReceivedTime;
         private int _comboCounter;
-
 
         public Vector3 Velocity
         {
@@ -59,6 +68,8 @@ namespace Prototype02
                 _animator.SetFloat("Speed", new Vector2(Velocity.x, Velocity.z).magnitude / _animationSpeedFactor);
             }
         }
+
+        public bool Pushed { get; internal set; }
 
         private void Start()
         {
@@ -114,7 +125,8 @@ namespace Prototype02
         {
             OnDeathEvent.Invoke();
             _animator.SetTrigger("FallHitFront");
-            Camera.main.GetComponent<FollowingCamera>().Shake(0.3f, 0.25f);
+            //var follow = Camera.main.GetComponent<FollowingCamera>();
+            //follow.Shake(0.3f, 0.25f);
         }
 
         public void Knockdown()
@@ -126,7 +138,7 @@ namespace Prototype02
         {
             OnKnockdownEvent.Invoke();
             _animator.SetTrigger("FallHitFront");
-            Camera.main.GetComponent<FollowingCamera>().Shake(0.15f, 0.25f);
+            //Camera.main.GetComponent<FollowingCamera>().Shake(0.15f, 0.25f);
             yield return new WaitForSeconds(1.5f);
             _animator.SetTrigger("GetUp");
             yield return new WaitForSeconds(_animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
@@ -138,22 +150,56 @@ namespace Prototype02
             _animator.SetTrigger("Jump");
         }
 
-        public void Attack()
+        public void Attack(AttackType type)
         {
-            if (Time.time - _lastAttackTime >= _attackCooldown)
+            Debug.Log(type + " attack type ");
+            switch (type)
             {
-                _lastAttackTime = Time.time;
-                StartCoroutine(AttackRoutine());
+                case AttackType.Quick:
+                    if (Time.time - _lastAttackTime >= _attackCooldown)
+                    {
+                        _lastAttackTime = Time.time;
+                        StartCoroutine(AttackRoutine(type));
+                    }
+                    break;
+
+                case AttackType.Powerful:
+                    if (Time.time - _lastAttackTime >= _attackCooldown * heavyAttackCooldownModifier)
+                    {
+                        _lastAttackTime = Time.time;
+                        StartCoroutine(AttackRoutine(type));
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        private IEnumerator AttackRoutine()
+        private IEnumerator AttackRoutine(AttackType type)
         {
-            _animator.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.1f);
-            _meleeCollider.enabled = true;
-            yield return new WaitForSeconds(0.2f);
-            _meleeCollider.enabled = false;
+            switch (type)
+            {
+                case AttackType.Quick:
+                    _animator.SetTrigger("AttackQuick");
+                    yield return new WaitForSeconds(0.1f);
+                    _meleeCollider.enabled = true;
+                    yield return new WaitForSeconds(0.2f);
+                    _meleeCollider.enabled = false;
+                    break;
+
+                case AttackType.Powerful:
+                    _animator.SetTrigger("AttackPowerful");
+                    yield return new WaitForSeconds(0.1f * heavyAttackCooldownModifier);
+                    _meleeCollider.enabled = true;
+                    yield return new WaitForSeconds(0.2f * heavyAttackCooldownModifier);
+                    _meleeCollider.enabled = false;
+
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         private void UpdateHealthBar()
@@ -165,4 +211,6 @@ namespace Prototype02
             healthBarImg.fillAmount = _hp / _maxHp;
         }
     }
+
+    public enum AttackType { Quick, Powerful }
 }

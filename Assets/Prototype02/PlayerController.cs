@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Prototype02
 {
@@ -13,26 +13,37 @@ namespace Prototype02
         [Header("Movement")]
         [SerializeField]
         private float _movementVelocity = 20;
+
         [SerializeField]
         private float _airControlAcceleration = 100;
+
         [SerializeField]
         private float _jumpHeight = 7;
+
         [SerializeField]
         private float _minJumpHeight = 2;
+
         [SerializeField]
         private float _jumpPeakHorizontalDistance = 7;
+
         [SerializeField]
         private float _fallGravityMultiplier = 1;
+
         [SerializeField]
         private float _stopJumpGravityMultiplier = 2;
+
         [SerializeField]
         private float _rotationSpeed = 10;
 
+        [SerializeField]
+        private float knockedBackSpeed;
 
         private Character _char;
         private CharacterController _charController;
+
         // TODO: Add input buffer
         private PlayerInputState _input;
+
         private Vector3 _velocity;
         private float _gravity;
         private float _initialJumpVelocity;
@@ -71,6 +82,11 @@ namespace Prototype02
 
             _input.UpdateInput();
 
+            if (_input.SingleFrame.AttackHeavy == ButtonState.DOWN)
+            {
+                Attack(AttackType.Powerful);
+            }
+
             if (_input.SingleFrame.Jump == ButtonState.DOWN)
             {
                 Jump();
@@ -82,12 +98,12 @@ namespace Prototype02
 
             if (_input.SingleFrame.Attack == ButtonState.DOWN)
             {
-                Attack();
+                Attack(AttackType.Quick);
             }
             _char.Velocity = _velocity;
         }
 
-        private void Attack()
+        private void Attack(AttackType type)
         {
             Vector3 halfBoxExtents = new Vector3(2f, 0.5f, 1f);
             DebugExtension.DebugLocalCube(transform.localToWorldMatrix, halfBoxExtents * 2, Color.red, Vector3.zero + Vector3.forward, 5);
@@ -103,9 +119,41 @@ namespace Prototype02
                     {
                         Lunge(collider.transform.position);
                     }
+                    collider.GetComponent<Character>().Pushed = type == AttackType.Powerful;
+                    collider.GetComponent<NavMeshAgent>().enabled = false;
+                    if (collider.GetComponent<Character>().Pushed)
+                    {
+
+                        StartCoroutine(KnockingBack(collider));
+                    }
                 }
             }
-            _char.Attack();
+            _char.Attack(type);
+        }
+
+        private IEnumerator KnockingBack(Collider collider)
+        {
+            var knockTo = -collider.transform.forward * 6;
+            int count = 0;
+            RaycastHit info;
+            while (collider.GetComponent<Character>().Pushed)
+            {
+                count++;
+                collider.transform.position = Vector3.Lerp(collider.transform.position, knockTo, Time.deltaTime * knockedBackSpeed);
+                yield return null;
+                if (count > 5 || (collider.transform.position - knockTo).sqrMagnitude < 2)
+                {
+                    collider.GetComponent<Character>().Pushed = false;
+
+                }
+            }
+            Ray IsGoingToDie = new Ray(collider.transform.position, Vector3.down);
+            Physics.Raycast(IsGoingToDie, out info);
+            if (!info.collider.GetComponent<Lava>())
+            {
+
+                collider.GetComponent<NavMeshAgent>().enabled = true;
+            }
         }
 
         private void Lunge(Vector3 target)
@@ -141,7 +189,7 @@ namespace Prototype02
                 }
             }
             else if (_moveAfterHitTimer <= 0)
-            { 
+            {
                 motion = CalculateXZMotion(_input.Continous.Horizontal, _input.Continous.Vertical);
                 RotateTowardsMovement(_input.Continous.Horizontal, _input.Continous.Vertical);
             }
@@ -151,7 +199,7 @@ namespace Prototype02
                 _moveAfterHitTimer -= Time.fixedDeltaTime;
                 _velocity = Vector3.zero;
             }
-            
+
             motion.y = CalculateYMotion();
             _charController.Move(motion);
             if (_charController.isGrounded)

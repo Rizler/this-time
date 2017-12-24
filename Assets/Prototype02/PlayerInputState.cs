@@ -21,10 +21,13 @@ namespace Prototype02
             Continous.Horizontal = Input.GetAxisRaw("Horizontal");
             Continous.Vertical = Input.GetAxisRaw("Vertical");
             Continous.Jump = Input.GetButton("Jump"); ;
-            Continous.Attack = Input.GetButton("Attack"); ;
+            Continous.AttackQuick = Input.GetButton("Attack");
+            Continous.AttackPowerful = Input.GetButton("AttackHeavy");
+
 
             SingleFrame.Jump = getSingleFrameButtonState("Jump");
             SingleFrame.Attack = getSingleFrameButtonState("Attack");
+            SingleFrame.AttackHeavy = getSingleFrameButtonState("AttackHeavy");
         }
 
         private SingleFrameInput.ButtonState getSingleFrameButtonState(string buttonName)
@@ -45,13 +48,16 @@ namespace Prototype02
             public float Horizontal { get; set; }
             public float Vertical { get; set; }
             public bool Jump { get; set; }
-            public bool Attack { get; set; }
+            public bool AttackQuick { get; set; }
+            public bool AttackPowerful { get; set; }
+
         }
 
         public class SingleFrameInput
         {
             public ButtonState Jump { get; set; }
             public ButtonState Attack { get; set; }
+            public ButtonState AttackHeavy { get; set; }
 
             public enum ButtonState
             {

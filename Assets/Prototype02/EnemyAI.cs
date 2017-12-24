@@ -48,7 +48,7 @@ namespace Prototype02
                 transform.LookAt(_agent.destination);
                 if (_shouldAttack)
                 {
-                    _char.Attack();
+                    _char.Attack((AttackType)Random.Range(0,1));
                 }
                 if (_agent.remainingDistance <= _stopDistance)
                 {

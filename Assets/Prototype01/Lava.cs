@@ -1,32 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Prototype02;
 using UnityEngine;
 
-public class Lava : MonoBehaviour {
+public class Lava : MonoBehaviour
+{
 
-	[SerializeField]
-	Transform playerTransform = null;
-	Vector3 playerStartPos;
-	Quaternion playerStartRot;
-	Collider restartCollider = null;
+    [SerializeField]
+    private Transform playerTransform = null;
 
-	// Use this for initialization
-	void Start () {
-		restartCollider = GetComponent<Collider>();
-		playerStartPos = playerTransform.position;
-		playerStartRot = playerTransform.rotation;
-		
-	}
+    private Vector3 playerStartPos;
+    private Quaternion playerStartRot;
+    private Collider restartCollider = null;
 
-	void Reset()
-	{
-		if (!playerTransform) playerTransform = FindObjectOfType<PlayerController>().transform;
-	}
+    // Use this for initialization
+    private void Start()
+    {
+        restartCollider = GetComponent<Collider>();
+        playerStartPos = playerTransform.position;
+        playerStartRot = playerTransform.rotation;
 
-	void OnTriggerEnter(Collider other)
-	{
-		playerTransform.position = playerStartPos;
-		playerTransform.rotation = playerStartRot;
-	}
+    }
+
+    private void Reset()
+    {
+        if (!playerTransform) playerTransform = FindObjectOfType<PlayerController>().transform;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<EnemyAI>())
+        {
+            Destroy(other);
+            //todo:add score ?
+        }
+        else
+        {
+
+            playerTransform.position = playerStartPos;
+            playerTransform.rotation = playerStartRot;
+        }
+    }
 }
-
