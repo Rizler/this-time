@@ -38,7 +38,7 @@ namespace Prototype02
         private float _knockdownDuration = 2f;
 
         [SerializeField]
-        private float heavyAttackCooldownModifier = 2f;
+        private float _heavyAttackCooldownModifier = 2f;
 
         [Header("Events")]
         public UnityEvent OnKnockdownEvent;
@@ -164,7 +164,7 @@ namespace Prototype02
                     break;
 
                 case AttackType.Powerful:
-                    if (Time.time - _lastAttackTime >= _attackCooldown * heavyAttackCooldownModifier)
+                    if (Time.time - _lastAttackTime >= _attackCooldown * _heavyAttackCooldownModifier)
                     {
                         _lastAttackTime = Time.time;
                         StartCoroutine(AttackRoutine(type));
@@ -190,9 +190,9 @@ namespace Prototype02
 
                 case AttackType.Powerful:
                     _animator.SetTrigger("AttackPowerful");
-                    yield return new WaitForSeconds(0.1f * heavyAttackCooldownModifier);
+                    yield return new WaitForSeconds(0.1f * _heavyAttackCooldownModifier);
                     _meleeCollider.enabled = true;
-                    yield return new WaitForSeconds(0.2f * heavyAttackCooldownModifier);
+                    yield return new WaitForSeconds(0.2f * _heavyAttackCooldownModifier);
                     _meleeCollider.enabled = false;
 
                     break;

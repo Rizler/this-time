@@ -36,14 +36,14 @@ namespace Prototype02
         private float _rotationSpeed = 10;
 
         [SerializeField]
-        private float knockedBackSpeed;
+        private float _knockedBackSpeed;
 
         private Character _char;
         private CharacterController _charController;
 
         // TODO: Add input buffer
         private PlayerInputState _input;
-
+        private PhotonView _view;
         private Vector3 _velocity;
         private float _gravity;
         private float _initialJumpVelocity;
@@ -63,6 +63,7 @@ namespace Prototype02
         // Use this for initialization
         private void Start()
         {
+            _view = GetComponent<PhotonView>();
             _charController = GetComponent<CharacterController>();
             _char = GetComponent<Character>();
             _input = new PlayerInputState();
@@ -75,6 +76,7 @@ namespace Prototype02
         // Update is called once per frame
         private void Update()
         {
+            if (!_view.isMine) return;
             if (_isKnockedDown)
             {
                 return;
@@ -139,7 +141,7 @@ namespace Prototype02
             while (collider.GetComponent<Character>().Pushed)
             {
                 count++;
-                collider.transform.position = Vector3.Lerp(collider.transform.position, knockTo, Time.deltaTime * knockedBackSpeed);
+                collider.transform.position = Vector3.Lerp(collider.transform.position, knockTo, Time.deltaTime * _knockedBackSpeed);
                 yield return null;
                 if (count > 5 || (collider.transform.position - knockTo).sqrMagnitude < 2)
                 {
