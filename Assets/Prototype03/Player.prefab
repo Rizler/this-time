@@ -471,8 +471,6 @@ GameObject:
   - component: {fileID: 143519737520370620}
   - component: {fileID: 114305889182729284}
   - component: {fileID: 114340203678313488}
-  - component: {fileID: 114996568425375150}
-  - component: {fileID: 114755786938750736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -631,8 +629,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4900820553547986}
   - component: {fileID: 95513931051980144}
-  - component: {fileID: 114633501883466300}
-  - component: {fileID: 114630165685099500}
+  - component: {fileID: 114662546778404944}
+  - component: {fileID: 114542151348102932}
+  - component: {fileID: 114270563354724480}
   m_Layer: 0
   m_Name: knightAnimated
   m_TagString: Untagged
@@ -1057,7 +1056,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1608045531391660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: 8.32}
+  m_LocalPosition: {x: 6.42, y: 0.42, z: -1.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4900820553547986}
@@ -1761,73 +1760,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114305889182729284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1608045531391660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb1ff86bad2805849b44880596106395, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementVelocity: 15
-  _airControlAcceleration: 100
-  _jumpHeight: 7
-  _minJumpHeight: 2
-  _jumpPeakHorizontalDistance: 7
-  _fallGravityMultiplier: 1
-  _stopJumpGravityMultiplier: 2
-  _rotationSpeed: 10
-  knockedBackSpeed: 6
---- !u!114 &114340203678313488
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1608045531391660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d3018b518f3944f9997cd76627b4fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 95513931051980144}
-  _animationSpeedFactor: 15
-  healthBarImg: {fileID: 0}
-  _hp: 100
-  _damage: 1
-  _attackCooldown: 0.1
-  _comboToKnockdown: 3
-  _comboTimeWindow: 1.5
-  _knockdownDuration: 2
-  heavyAttackCooldownModifier: 2
-  OnKnockdownEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnGetUpEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHitDeliveredEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHitReceivedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &114630165685099500
+--- !u!114 &114270563354724480
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1867,33 +1800,7 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 1
     LayerIndex: 1
---- !u!114 &114633501883466300
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1788223504573044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 3
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 95513931051980144}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
---- !u!114 &114755786938750736
+--- !u!114 &114305889182729284
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1901,11 +1808,77 @@ MonoBehaviour:
   m_GameObject: {fileID: 1608045531391660}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1ff86bad2805849b44880596106395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementVelocity: 15
+  _airControlAcceleration: 100
+  _jumpHeight: 7
+  _minJumpHeight: 2
+  _jumpPeakHorizontalDistance: 7
+  _fallGravityMultiplier: 1
+  _stopJumpGravityMultiplier: 2
+  _rotationSpeed: 10
+  _knockedBackSpeed: 0
+--- !u!114 &114340203678313488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1608045531391660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d3018b518f3944f9997cd76627b4fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95513931051980144}
+  _animationSpeedFactor: 15
+  healthBarImg: {fileID: 0}
+  _hp: 100
+  _damage: 1
+  _attackCooldown: 0.1
+  _comboToKnockdown: 3
+  _comboTimeWindow: 1.5
+  _knockdownDuration: 2
+  _heavyAttackCooldownModifier: 2
+  OnKnockdownEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnGetUpEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnHitDeliveredEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnHitReceivedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &114542151348102932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1788223504573044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PositionModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     TeleportEnabled: 1
     TeleportIfDistanceGreaterThan: 3
     InterpolateOption: 2
@@ -1949,7 +1922,7 @@ MonoBehaviour:
     ExtrapolateNumberOfStoredPositions: 1
     DrawErrorGizmo: 1
   m_RotationModel:
-    SynchronizeEnabled: 0
+    SynchronizeEnabled: 1
     InterpolateOption: 1
     InterpolateRotateTowardsSpeed: 180
     InterpolateLerpSpeed: 5
@@ -1958,23 +1931,12 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &114861737444880184
+--- !u!114 &114662546778404944
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1735173439100728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed48e599551a4304e923e95593470a29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114996568425375150
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1608045531391660}
+  m_GameObject: {fileID: 1788223504573044}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -1995,6 +1957,17 @@ MonoBehaviour:
   instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114861737444880184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735173439100728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed48e599551a4304e923e95593470a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135238261233364326
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -2226,7 +2199,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.003988484, y: 0.000053167314, z: -0.00024238741}
+  m_ConnectedAnchor: {x: 0.0039884876, y: 0.000053167314, z: -0.00024239719}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -2270,7 +2243,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.0000000016298125, y: 0.018509204, z: -0.0000000051222617}
+  m_ConnectedAnchor: {x: -0.0000000016298125, y: 0.018509202, z: -0.0000000016298105}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -2314,7 +2287,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 7.148079e-29, y: 0.01977167, z: -0.0015441421}
+  m_ConnectedAnchor: {x: 0, y: 0.019771663, z: -0.0015441328}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -2358,7 +2331,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 3.0240718e-10, y: 0.012551811, z: -0.001268387}
+  m_ConnectedAnchor: {x: 3.0240885e-10, y: 0.0125518115, z: -0.0012683945}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -2402,7 +2375,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.6566076e-10, y: 0.018509211, z: -0.000000006286412}
+  m_ConnectedAnchor: {x: -0.000000003026795, y: 0.018509215, z: -6.984902e-10}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -2446,7 +2419,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.011535206, y: 0.008774034, z: 0.000052820076}
+  m_ConnectedAnchor: {x: -0.011535209, y: 0.008774026, z: 0.00005280983}
   serializedVersion: 2
   m_SwingAxis: {x: 1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -2490,7 +2463,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000002793966, y: 0.01615091, z: 0.0000000027939677}
+  m_ConnectedAnchor: {x: 0.0000000086147285, y: 0.016150912, z: 0.0000000027939677}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -2534,7 +2507,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.000000003841704, y: 0.016150912, z: -0.0000000023283062}
+  m_ConnectedAnchor: {x: -6.9849165e-10, y: 0.016150909, z: 0.0000000013969836}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -2578,7 +2551,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.003988484, y: 0.000053167314, z: -0.00024238741}
+  m_ConnectedAnchor: {x: -0.0039884876, y: 0.000053167314, z: -0.00024239719}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -2622,7 +2595,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.011535205, y: 0.008774034, z: 0.000052825548}
+  m_ConnectedAnchor: {x: 0.011535209, y: 0.008774026, z: 0.000052815303}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
